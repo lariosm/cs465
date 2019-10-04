@@ -11,3 +11,8 @@ def test_non_repeating_character_string():
 
 def test_single_character_string_compression():
     assert encode("aaaa") == "a4"
+    assert encode("aa") == "a2"
+
+def test_multiple_characters_string_compression():
+    assert encode("aabb") == "a2b2"
+    assert encode("bbbaacccc") == "b3a2c4"
