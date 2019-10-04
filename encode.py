@@ -4,20 +4,23 @@ def encode(input_string):
     compressed_string = ""
 
     while index < len(input_string) - 1:
+        if(index == 0):
+            compressed_string = input_string[0]
+
         #Is the letter in the next index the same as the letter in the current index?
         if(input_string[index] == input_string[index + 1]):
             letter_count += 1 #increments letter_count
-            #index += 1 #moves index to next element
 
-        if(input_string[index] != input_string[index + 1]):
+        else:
             if(letter_count > 1):
-                compressed_string += input_string[index] + str(letter_count)
-                letter_count = 1 #Resets letter_count to 1 for next set of repeating letters
-        
+                compressed_string += str(letter_count)
+                letter_count = 1
+            compressed_string += input_string[index + 1]
+
         index += 1
 
-    if(letter_count > 1):
-        compressed_string += input_string[index] + str(letter_count)
+        if(index == len(input_string) - 1 and letter_count > 1):
+            compressed_string += str(letter_count)
 
     if(len(compressed_string) > 0):
         return compressed_string
