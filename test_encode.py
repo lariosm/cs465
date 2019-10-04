@@ -1,10 +1,10 @@
-from encode import string_compressor
+from encode import encode
 
 def test_empty_string():
-    assert string_compressor("") == ""
+    assert encode("") == ""
 
 def test_single_character_string():
-    assert string_compressor("a")
+    assert encode("a")
 
 def test_non_repeating_character_string():
-    assert string_compressor("abcdefg")
+    assert encode("abcdefg")

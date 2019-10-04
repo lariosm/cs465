@@ -1,2 +1,2 @@
-def string_compressor(string_input):
-    return string_input
+def encode(input_string):
+    return input_string
