@@ -5,7 +5,7 @@ def encode(input_string):
 
     while index < len(input_string) - 1:
         if(index == 0):
-            encoded_string = input_string[0] #Append letter from first index
+            encoded_string += input_string[0] #Append letter from first index, especially if it's a non-repeating letter
 
         #Is the letter in the next index the same as the letter in the current index?
         if(input_string[index] == input_string[index + 1]):
@@ -24,6 +24,7 @@ def encode(input_string):
         if(index == len(input_string) - 1 and letter_count > 1):
             encoded_string += str(letter_count)
 
+    #Is input_string not an empty string?
     if(len(encoded_string) > 0):
         return encoded_string
     
