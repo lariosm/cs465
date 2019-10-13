@@ -13,3 +13,6 @@ def test_months_ago():
 
 def test_years_ago():
     assert (pretty_date(datetime.utcnow() - timedelta(weeks=120))) == "2 years ago"
+
+def test_weeks_ago():
+    assert (pretty_date(datetime.utcnow() - timedelta(weeks=3))) == "3 weeks ago"
