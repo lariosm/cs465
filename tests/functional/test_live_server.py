@@ -21,7 +21,7 @@ class TestLiveServer(object):
                 element = client.browser.find_element_by_id(element_id).text
                 assert text in element
                 return
-            except (AssertionError, WebDriverException) as e:
+            except (AssertionError, WebDriverException) as e: # pragma: no cover
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.25)
