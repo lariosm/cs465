@@ -90,7 +90,7 @@ class Post(db.Model):
         return user in self.user_votes
 
     def adjust_vote(self, amount):
-        if self.vote_count is None:
+        if self.vote_count is None: # pragma: no cover
             self.vote_count = 0
         self.vote_count += amount
         db.session.add(self)
@@ -151,7 +151,7 @@ class Comment(db.Model):
         return user in self.user_votes
 
     def adjust_vote(self, amount):
-        if self.vote_count is None:
+        if self.vote_count is None: # pragma: no cover
             self.vote_count = 0
         self.vote_count += amount
         db.session.add(self)
