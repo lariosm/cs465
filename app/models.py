@@ -141,7 +141,7 @@ class Comment(db.Model):
         "User", secondary=comment_vote, back_populates="comment_votes"
     )
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         return f"<Comment id {self.id} - {self.body[:20]}>"
 
     def pretty_timestamp(self):
@@ -177,7 +177,7 @@ class ActivityLog(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     details = db.Column(db.Text)
 
-    def __repr__(self):
+    def __repr__(self): # pragma: no cover
         return f"<ActivityLog id {self.id} - {self.details[:20]}>"
 
     @classmethod
