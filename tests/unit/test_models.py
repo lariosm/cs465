@@ -163,7 +163,17 @@ def test_user_cannot_change_vote_count_for_own_comment(
     c = single_post_with_comment.comments[0]
     assert c.vote_count == 1
     c.up_vote(test_user)
+    c.down_vote(test_user)
     assert c.vote_count == 1
+
+
+""" def test_user_cannot_change_vote_count_for_own_comment(
+    client, test_user, single_post_with_comment
+):
+    c = single_post_with_comment.comments[0]
+    c.vote_count = 4
+    c.down_vote(test_user)
+    assert c.vote_count == 4 """
 
 
 def test_posts_can_be_just_links_without_body(client, test_user):
