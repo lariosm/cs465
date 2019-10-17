@@ -24,3 +24,9 @@ activity_log = [
 @app.route('/api/activities', methods=["GET"])
 def activities():
     return jsonify({'activities': activity_log})
+
+@app.route('/api/activities/<int:id>', methods=["GET"])
+def activity(id):
+    if id < 0 or id >= len(activity_log):
+        abort(404)
+    return jsonify(activity_log[id])
