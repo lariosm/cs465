@@ -21,7 +21,7 @@ activity_log = [
     },
 ]
 
-@app.route('/api/activities', methods=["GET"])
+@app.route('/api/activities/', methods=["GET"])
 def activities():
     return jsonify({'activities': activity_log})
 
