@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, abort, request, url_for
+from flask import Flask, jsonify, abort, request
 from datetime import datetime
 
 
@@ -21,9 +21,11 @@ activity_log = [
     },
 ]
 
+
 @app.route('/api/activities/', methods=["GET"])
 def activities():
     return jsonify({'activities': activity_log})
+
 
 @app.route('/api/activities/<int:id>', methods=["GET"])
 def activity(id):
@@ -31,12 +33,14 @@ def activity(id):
         abort(404)
     return jsonify(activity_log[id])
 
+
 @app.route('/api/activities', methods=["POST"])
 def create_activity():
     if not request.json:
         abort(400)
     new_activity = request.get_json()
-    if 'user_id' not in new_activity or 'username' not in new_activity or 'details' not in new_activity:
+    if ('user_id' not in new_activity or 'username' not in new_activity or
+            'details' not in new_activity):
         abort(400)
     new_activity['id'] = len(activity_log)
     new_activity['timestamp'] = datetime.utcnow()
