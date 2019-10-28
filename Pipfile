@@ -10,6 +10,8 @@ flake8 = "*"
 flask = "*"
 pytest = "*"
 coverage = "*"
+pymongo = "*"
+mongoengine = "*"
 
 [requires]
 python_version = "3.7"
