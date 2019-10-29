@@ -12,6 +12,7 @@ pytest = "*"
 coverage = "*"
 pymongo = "*"
 mongoengine = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"
