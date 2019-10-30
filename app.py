@@ -65,3 +65,11 @@ def create_activity():
     new_log_json = json.loads(new_log.to_json())
     # Returns entry in JSON format with status code 201
     return jsonify(new_log_json), 201
+
+
+@app.route('/api/purgedb/', methods=["GET"])
+def purge_db():
+    logs = ActivityLog.objects
+    for log in logs:
+        log.delete()
+    return 'The deed is done!'

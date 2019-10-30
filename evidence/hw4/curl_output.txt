@@ -1,0 +1,138 @@
+manuel@linuxpc:~$ curl http://0.0.0.0:5001/api/activities/
+{
+  "activities": [
+    {
+      "_id": {
+        "$oid": "5db91ffe57851d3297feb171"
+      }, 
+      "details": "Register", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db9201a57851d3297feb172"
+      }, 
+      "details": "Login <User id 7 - wolfbot>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db9205357851d3297feb173"
+      }, 
+      "details": "Up Vote: <Post id 214 - Flask vs Django For web based virtual assistant?>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db9206f57851d3297feb174"
+      }, 
+      "details": "Down Vote: <Post id 242 - PLEASE HELP ME! IM DONE WITH THIS! IT IS NO WHERE ONLINE AND I AM DONE WITH THE HOURS OF COUNTLESS SEARCHING! NOTHING! NO WHERE! THERE IS NO INFORMATION ON ANY OF MY QUERIES!>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db9219457851d3297feb175"
+      }, 
+      "details": "Create: <Post id 260 - First post>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db92c3357851d3297feb176"
+      }, 
+      "details": "Down Vote: <Post id 216 - Most Pythonic way to accumulate counts when you don't know what the highest value will be?>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db92c3557851d3297feb177"
+      }, 
+      "details": "Up Vote: <Post id 219 - Please review my hex dump function>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db92c3957851d3297feb178"
+      }, 
+      "details": "Down Vote: <Post id 220 - Code assignment not working as intended>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "_id": {
+        "$oid": "5db92c3a57851d3297feb179"
+      }, 
+      "details": "Up Vote: <Post id 221 - Sorting a pandas data frame by a specific column>", 
+      "timestamp": {
+        "$date": 1572412691589
+      }, 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }
+  ]
+}
+
+
+
+
+manuel@linuxpc:~$ curl http://0.0.0.0:5001/api/activities/5db92c3a57851d3297feb179
+{
+  "_id": {
+    "$oid": "5db92c3a57851d3297feb179"
+  }, 
+  "details": "Up Vote: <Post id 221 - Sorting a pandas data frame by a specific column>", 
+  "timestamp": {
+    "$date": 1572412691589
+  }, 
+  "user_id": 7, 
+  "username": "wolfbot"
+}
+
+
+
+
+manuel@linuxpc:~$ curl -H "Content-Type: application/json" --request POST --data '{"details": "This is me making a POST request to the API", "user_id": 2, "username": "joe"}' http://0.0.0.0:5001/api/activities/
+{
+  "_id": {
+    "$oid": "5db92d3457851d3297feb17a"
+  }, 
+  "details": "This is me making a POST request to the API", 
+  "timestamp": {
+    "$date": 1572412691589
+  }, 
+  "user_id": 2, 
+  "username": "joe"
+}
+
+
