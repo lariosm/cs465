@@ -6,11 +6,6 @@ app = Flask(__name__)
 
 @app.route('/api/intdata/<int:id>', methods=["GET"])
 def number(id):
-    num_data = [
-        {
-            'even': 'false',
-            'inverted': '256'
-        }
-    ]
-
-    return jsonify(num_data)
+    if(id % 2 == 0):
+        return jsonify({'even': 'true', 'inverted': -id})
+    return jsonify({'even': 'false', 'inverted': -id})
