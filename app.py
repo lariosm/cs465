@@ -70,11 +70,3 @@ def create_activity():
     # Queries database from created activity and saves it as Document object
     activity_obj = ActivityLog.objects(id=save_activity.id)
     return jsonify(activity_helper(activity_obj)), 201
-
-
-@app.route('/api/purgedb/', methods=["GET"])
-def purge_all():
-    logs = ActivityLog.objects
-    for log in logs:
-        log.delete()
-    return 'The deed is done'
