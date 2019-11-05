@@ -95,7 +95,7 @@ class Post(db.Model):
         return user in self.user_votes
 
     def adjust_vote(self, amount):
-        if self.vote_count is None: # pragma: no cover
+        if self.vote_count is None:  # pragma: no cover
             self.vote_count = 0
         self.vote_count += amount
         db.session.add(self)
@@ -146,7 +146,7 @@ class Comment(db.Model):
         "User", secondary=comment_vote, back_populates="comment_votes"
     )
 
-    def __repr__(self): # pragma: no cover
+    def __repr__(self):  # pragma: no cover
         return f"<Comment id {self.id} - {self.body[:20]}>"
 
     def pretty_timestamp(self):
@@ -156,7 +156,7 @@ class Comment(db.Model):
         return user in self.user_votes
 
     def adjust_vote(self, amount):
-        if self.vote_count is None: # pragma: no cover
+        if self.vote_count is None:  # pragma: no cover
             self.vote_count = 0
         self.vote_count += amount
         db.session.add(self)
@@ -197,7 +197,7 @@ class ActivityLog(db.Model):
             else:
                 logging.critical(f"Get activities FAILURE: {r.text}")
         except requests.exceptions.RequestException:
-            logging.critical(f"Could not connect to activity log service at {url}")
+            logging.critical(f"Could not connect to activity log service at {post_url}")
 
 
 @login.user_loader
