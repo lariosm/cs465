@@ -2,10 +2,19 @@ from flask import Flask, jsonify, abort, request, url_for
 from datetime import datetime
 from mongoengine import connect, StringField, IntField, Document, \
     DateTimeField, queryset_manager, ValidationError
-
+import os
 
 app = Flask(__name__)
-connect(db="act_log", host="localhost")
+
+mongo_db = os.environ.get('DB_NAME')
+mongo_user = os.environ.get('DB_USER')
+mongo_password = os.environ.get('DB_PASSWORD')
+mongo_cluster = os.environ.get('DB_CLUSTER')
+
+# Connection settings to MongoDB Atlas
+connect(host=f"mongodb+srv://{mongo_cluster}.mongodb.net/{mongo_db}",
+        username=mongo_user,
+        password=mongo_password)
 
 
 # MongoDB document that describes schema for log entries
@@ -48,8 +57,8 @@ def activity(str_id):
             abort(404)
         return jsonify(activity_helper(log_id))
     except ValidationError:
-        abort(400, '\'{}\' is not a valid ObjectId. It must be a 12-byte'
-              ' input or a 24-character hex string.'.format(str_id))
+        abort(400, f'\'{str_id}\' is not a valid ObjectId. It must be a'
+              ' 12-byte input or a 24-character hex string.')
 
 # Creates and returns log entry
 @app.route('/api/activities/', methods=["POST"])

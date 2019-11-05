@@ -10,7 +10,7 @@ flake8 = "*"
 flask = "*"
 pytest = "*"
 coverage = "*"
-pymongo = "*"
+pymongo = {extras = ["srv"],version = "*"}
 mongoengine = "*"
 requests = "*"
 
