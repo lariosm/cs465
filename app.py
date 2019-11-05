@@ -1,9 +1,7 @@
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, url_for
 from datetime import datetime
 from mongoengine import connect, StringField, IntField, Document, \
-    DateTimeField, queryset_manager
-import json
-from bson import ObjectId
+    DateTimeField, queryset_manager, ValidationError
 
 
 app = Flask(__name__)
@@ -14,7 +12,7 @@ connect(db="act_log", host="localhost")
 class ActivityLog(Document):
     user_id = IntField(required=True)
     username = StringField(required=True, max_length=64)
-    timestamp = DateTimeField(default=datetime.utcnow())
+    timestamp = DateTimeField(default=datetime.utcnow)
     details = StringField(required=True)
 
     @queryset_manager
@@ -23,28 +21,35 @@ class ActivityLog(Document):
         return queryset.order_by('-timestamp')
 
 
+def activity_helper(doc_objects):
+    # Turns document objects to dictionaries
+    dict_logs = [log.to_mongo().to_dict() for log in doc_objects]
+    for log in dict_logs:
+        log["id"] = str(log["_id"])  # Store Mongo-generated id to "id"
+        log.pop("_id")  # Remove to avoid raising TypeError exception
+        log["location"] = url_for("activity", str_id=log["id"])
+    return dict_logs
+
+
 # Returns all log entries
 @app.route('/api/activities/', methods=["GET"])
 def activities():
     logs = ActivityLog.objects[:10]  # Returns first 10 entries
-    # Deserializes JSON document to python dict object
-    json_logs = json.loads(logs.to_json())
-    return jsonify({'activities': json_logs})
+    return jsonify({'activities': activity_helper(logs)})
 
 
 # Returns a single log entry
 @app.route('/api/activities/<string:str_id>', methods=["GET"])
 def activity(str_id):
-    # Checks if input is valid (BSON) ObjectId object
-    if ObjectId.is_valid(str_id):
-        # Queries database by str_id and saves result to log_id
-        log_id = ActivityLog.objects(id=str_id).first()
-        if log_id is None:  # Does an entry with that str_id not exist?
+    try:
+        # Queries database from string input and save it
+        log_id = ActivityLog.objects(id=str_id)
+        if log_id.first() is None:  # Does the log entry exist?
             abort(404)
-        # Deserializes JSON document to python dict object in readable format
-        log_id_json = json.loads(log_id.to_json())
-    return jsonify(log_id_json)
-
+        return jsonify(activity_helper(log_id))
+    except ValidationError:
+        abort(400, '\'{}\' is not a valid ObjectId. It must be a 12-byte'
+              ' input or a 24-character hex string.'.format(str_id))
 
 # Creates and returns log entry
 @app.route('/api/activities/', methods=["POST"])
@@ -52,16 +57,24 @@ def create_activity():
     if not request.json:  # Is POST request in JSON format?
         abort(400)
     new_activity = request.get_json()  # Saves request to work with down below
+    # Checks if our JSON request contains the following keys to continue
     if ('user_id' not in new_activity or 'username' not in new_activity or
             'details' not in new_activity):
         abort(400)
     # Creates and saves log entry
-    new_log = ActivityLog(
+    save_activity = ActivityLog(
         user_id=new_activity['user_id'],
         username=new_activity['username'],
         details=new_activity['details']
     ).save()
-    # Deserializes JSON document to python dict object in readable format
-    new_log_json = json.loads(new_log.to_json())
-    # Returns entry in JSON format with status code 201
-    return jsonify(new_log_json), 201
+    # Queries database from created activity and saves it as Document object
+    activity_obj = ActivityLog.objects(id=save_activity.id)
+    return jsonify(activity_helper(activity_obj)), 201
+
+
+@app.route('/api/purgedb/', methods=["GET"])
+def purge_all():
+    logs = ActivityLog.objects
+    for log in logs:
+        log.delete()
+    return 'The deed is done'
