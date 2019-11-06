@@ -5,4 +5,4 @@ set -a
 . ./atlas.settings
 set +a
 
-flask run --host=0.0.0.0 --port=5001
+flask run --host=localhost --port=$@

@@ -1,9 +1,6 @@
-from flask import Flask, json, url_for
 import sys
-sys.path.append('..')
-import pytest
 import requests
-import app
+sys.path.append('..')
 
 
 def test_return_all_activities():

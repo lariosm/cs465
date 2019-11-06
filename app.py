@@ -9,10 +9,12 @@ app = Flask(__name__)
 mongo_db = os.environ.get('DB_NAME')
 mongo_user = os.environ.get('DB_USER')
 mongo_password = os.environ.get('DB_PASSWORD')
-mongo_cluster = os.environ.get('DB_CLUSTER')
+mongo_host = os.environ.get('DB_HOST')
 
-# Connection settings to MongoDB Atlas
-connect(host=f"mongodb+srv://{mongo_cluster}.mongodb.net/{mongo_db}",
+
+# Connection settings to MongoDB cloud server
+connect(host=mongo_host,
+        db=mongo_db,
         username=mongo_user,
         password=mongo_password)
 
