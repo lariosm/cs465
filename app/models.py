@@ -11,8 +11,9 @@ from app.helpers import pretty_date
 
 import requests
 import logging
+import os
 
-URL = 'http://0.0.0.0:5001'
+URL = os.environ.get("URL")
 
 user_vote = db.Table(
     "user_vote",
