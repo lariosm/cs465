@@ -6,10 +6,10 @@ import os
 
 app = Flask(__name__)
 
-mongo_db = os.environ.get('DB_NAME')
-mongo_user = os.environ.get('DB_USER')
-mongo_password = os.environ.get('DB_PASSWORD')
-mongo_host = os.environ.get('DB_HOST')
+mongo_db = os.getenv('DB_NAME')
+mongo_user = os.getenv('DB_USER')
+mongo_password = os.getenv('DB_PASSWORD')
+mongo_host = os.getenv('DB_HOST')
 
 
 # Connection settings to MongoDB cloud server
