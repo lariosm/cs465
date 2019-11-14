@@ -3,6 +3,7 @@ from datetime import datetime
 from mongoengine import connect, StringField, IntField, Document, \
     DateTimeField, queryset_manager, ValidationError
 import os
+import time
 
 app = Flask(__name__)
 
@@ -65,6 +66,8 @@ def activity(str_id):
 # Creates and returns log entry
 @app.route('/api/activities/', methods=["POST"])
 def create_activity():
+    # Sets value for simulated latency
+    sleep_time = os.getenv('SLEEP_TIME', default=0)
     if not request.json:  # Is POST request in JSON format?
         abort(400)
     new_activity = request.get_json()  # Saves request to work with down below
@@ -78,6 +81,7 @@ def create_activity():
         username=new_activity['username'],
         details=new_activity['details']
     ).save()
+    time.sleep(int(sleep_time))  # Simulates latency in receiving a response
     # Queries database from created activity and saves it as Document object
     activity_obj = ActivityLog.objects(id=save_activity.id)
     return jsonify(activity_helper(activity_obj)), 201
