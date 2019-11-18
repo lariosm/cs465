@@ -13,9 +13,9 @@ import requests
 import logging
 import os
 
-# url = os.environ.get('CELERY_URL')
-celery = Celery('models', broker='redis://localhost', backend='redis://localhost')
-# url = "http://localhost:5001"
+celery = Celery('models',
+                broker=application.config['BROKER_URL'],
+                backend=application.config['BROKER_URL'])
 
 user_vote = db.Table(
     "user_vote",
