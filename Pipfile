@@ -7,7 +7,7 @@ verify_ssl = true
 flake8 = "*"
 
 [packages]
-connexion = "*"
+connexion = {extras = ["swagger-ui"],version = "*"}
 
 [requires]
 python_version = "3.7"
