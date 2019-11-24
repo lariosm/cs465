@@ -12,7 +12,7 @@ def home():
     """
     This function just responds to the browser ULR
     localhost:5000/
-    :return:        the rendered template 'home.html'
+    :return:        the rendered html page
     """
     return "Hello, world!"
 
