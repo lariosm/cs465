@@ -11,6 +11,8 @@ mongo_db = os.getenv('DB_NAME')
 mongo_user = os.getenv('DB_USER')
 mongo_password = os.getenv('DB_PASSWORD')
 mongo_host = os.getenv('DB_HOST')
+# Sets value for simulated latency
+sleep_time = os.getenv('SLEEP_TIME', default=0)
 
 
 # Connection settings to MongoDB cloud server
@@ -66,8 +68,6 @@ def activity(str_id):
 # Creates and returns log entry
 @app.route('/api/activities/', methods=["POST"])
 def create_activity():
-    # Sets value for simulated latency
-    sleep_time = os.getenv('SLEEP_TIME', default=0)
     if not request.json:  # Is POST request in JSON format?
         abort(400)
     new_activity = request.get_json()  # Saves request to work with down below
