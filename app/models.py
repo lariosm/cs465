@@ -192,9 +192,9 @@ class ActivityLog(db.Model):
         try:
             r = requests.post(post_url, json=activity)
             if r.status_code == 201:
-                logging.info(f"Get activities SUCCESS at {post_url}")
+                logging.info(f"POST activities SUCCESS at {post_url}")
             else:
-                logging.critical(f"Get activities FAILURE: {r.text}")
+                logging.critical(f"POST activities FAILURE: {r.text}")
         except requests.exceptions.RequestException:
             logging.critical(f"Could not connect to activity log service at {post_url}")
 
