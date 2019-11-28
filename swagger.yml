@@ -28,15 +28,22 @@ paths:
               properties:
                 user_id:
                   type: "integer"
+                  example: 3
                 username:
                   type: "string"
+                  example: "bob"
                 category:
                   type: "string"
+                  example: "NCAA Football"
                 title:
                   type: "string"
+                  example: "Who will win? Ducks or Beavers?"
                 url:
                   type: "string"
+                  example: "http://www.example.com"
                 body:
                   type: "string"
+                  example: "Who do you think will win this year?"
                 timestamp:
                   type: "string"
+                  example: "2019-11-27 20:10:09"
