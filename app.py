@@ -35,21 +35,22 @@ class ActivityLog(Document):
         return queryset.order_by('-timestamp')
 
 
-def activity_helper(doc_objects):
-    # Turns document objects to dictionaries
-    dict_logs = [log.to_mongo().to_dict() for log in doc_objects]
-    for log in dict_logs:
-        log["id"] = str(log["_id"])  # Store Mongo-generated id to "id"
-        log.pop("_id")  # Remove to avoid raising TypeError exception
-        log["location"] = url_for("activity", str_id=log["id"])
-    return dict_logs
+def activity_helper(activity_object):
+    # Turns document object to dictionary
+    activity = activity_object.to_mongo().to_dict()
+    activity["id"] = str(activity["_id"])  # Store Mongo-generated id to "id"
+    activity.pop("_id")  # Remove to avoid raising TypeError exception
+    activity["location"] = url_for("activity", str_id=activity["id"])
+
+    return activity
 
 
 # Returns all log entries
-@app.route('/api/activities/', methods=["GET"])
+@app.route('/api/activities', methods=["GET"])
 def activities():
     logs = ActivityLog.objects[:10]  # Returns first 10 entries
-    return jsonify({'activities': activity_helper(logs)})
+    log_list = [activity_helper(log) for log in logs]
+    return jsonify({'activities': log_list})
 
 
 # Returns a single log entry
@@ -60,13 +61,13 @@ def activity(str_id):
         log_id = ActivityLog.objects(id=str_id)
         if log_id.first() is None:  # Does the log entry exist?
             abort(404)
-        return jsonify(activity_helper(log_id))
+        return jsonify(activity_helper(log_id.get()))
     except ValidationError:
         abort(400, f'\'{str_id}\' is not a valid ObjectId. It must be a'
               ' 12-byte input or a 24-character hex string.')
 
 # Creates and returns log entry
-@app.route('/api/activities/', methods=["POST"])
+@app.route('/api/activities', methods=["POST"])
 def create_activity():
     if not request.json:  # Is POST request in JSON format?
         abort(400)
@@ -84,4 +85,4 @@ def create_activity():
     time.sleep(int(sleep_time))  # Simulates latency in receiving a response
     # Queries database from created activity and saves it as Document object
     activity_obj = ActivityLog.objects(id=save_activity.id)
-    return jsonify(activity_helper(activity_obj)), 201
+    return jsonify(activity_helper(activity_obj.get())), 201
