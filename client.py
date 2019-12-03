@@ -1,6 +1,7 @@
 import requests
 import json
 import sys
+import time
 
 
 def get_single_item(index):
@@ -20,4 +21,5 @@ if __name__ == "__main__":
     i = 0
     while i < 6:
         get_single_item(int(sys.argv[1]))
+        time.sleep(3)
         i = i + 1
