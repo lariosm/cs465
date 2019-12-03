@@ -14,7 +14,7 @@ basePath: "/api"
 paths:
   /posts:
     get:
-      operationId: "posts_v2.read"
+      operationId: "posts.read"
       tags:
         - "Posts"
       summary: "The posts data structure supported by the server application"
@@ -49,4 +49,4 @@ paths:
                   example: "2019-11-27 20:10:09"
                 version:
                   type: "number"
-                  example: "2.0"
+                  example: "1.0"

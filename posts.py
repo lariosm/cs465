@@ -15,6 +15,7 @@ POSTS = {
         "url": "http://www.example.com",
         "body": "What tools do I need to start programming on Windows?",
         "timestamp": get_timestamp(),
+        "version": 1.0,
     },
     "1": {
         "user_id": 7,
@@ -24,6 +25,7 @@ POSTS = {
         "url": "http://www.example.net",
         "body": "Looking to upgrade to iPhone 11 and need this gone ASAP.",
         "timestamp": get_timestamp(),
+        "version": 1.0,
     },
     "2": {
         "user_id": 12,
@@ -33,6 +35,7 @@ POSTS = {
         "url": "http://www.example.org",
         "body": "What do y\"all think? Should I go watch it?",
         "timestamp": get_timestamp(),
+        "version": 1.0,
     }
 }
 
