@@ -19,7 +19,7 @@ def get_single_item(index):
 
 if __name__ == "__main__":
     i = 0
-    while i < 6:
+    while i < 10:
         get_single_item(int(sys.argv[1]))
-        time.sleep(3)
+        time.sleep(5)
         i = i + 1
