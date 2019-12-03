@@ -15,6 +15,7 @@ POSTS = {
         "url": "http://www.example.com",
         "body": "What tools do I need to start programming on Windows?",
         "timestamp": get_timestamp(),
+        "user_ip": "122.155.232.44",
         "version": 2.0,
     },
     "1": {
@@ -25,6 +26,7 @@ POSTS = {
         "url": "http://www.example.net",
         "body": "Looking to upgrade to iPhone 11 and need this gone ASAP.",
         "timestamp": get_timestamp(),
+        "user_ip": "52.120.282.174",
         "version": 2.0,
     },
     "2": {
@@ -35,6 +37,7 @@ POSTS = {
         "url": "http://www.example.org",
         "body": "What do y\"all think? Should I go watch it?",
         "timestamp": get_timestamp(),
+        "user_ip": "102.55.21.194",
         "version": 2.0,
     }
 }
