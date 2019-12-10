@@ -1,4 +1,6 @@
 from flask import Flask, abort, render_template
+import requests
+import json
 
 
 app = Flask(__name__)
@@ -24,41 +26,39 @@ POSTS = [
     },
 ]
 
-VOTES = [
-    {
-        'post_id': 0,
-        'vote_count': -1,
-    },
-    {
-        'post_id': 1,
-        'vote_count': 5,
-    },
-    {
-        'post_id': 2,
-        'vote_count': 42,
-    },
-]
-
 
 @app.route('/')
 def index():
-    return render_template(
-        "index.html",
-        title="Microblog for Microservices",
-        posts=POSTS,
-        votes=VOTES,
-    )
+    get_url = "http://localhost:5001/api/votes"
+    try:
+        r = requests.get(get_url)
+        if r.status_code == 200:
+            data = json.loads(r.text)
+            return render_template(
+                "index.html",
+                title="Microblog for Microservices",
+                posts=POSTS,
+                votes=data,
+            )
+    except requests.exceptions.RequestException:
+        print(f"Could not connect to the service at {get_url}")
 
 
 @app.route('/post/<int:post_id>')
 def post(post_id):
     if post_id < 0 or post_id >= len(POSTS):
         abort(404)
-    post = POSTS[post_id]
-    vote_count = VOTES[post_id]['vote_count']
-    return render_template(
-        "post.html",
-        title=POSTS['title'],
-        post=post,
-        vote_count=vote_count,
-    )
+    get_url = "http://localhost:5001/api/votes"
+    try:
+        r = requests.get(get_url)
+        if r.status_code == 200:
+            data = json.loads(r.text)
+            post = POSTS[post_id]
+            return render_template(
+                "post.html",
+                title=POSTS[post_id]['title'],
+                post=post,
+                vote_count=data[post_id]['vote_count'],
+            )
+    except requests.exceptions.RequestException:
+        print(f"Could not connect to the service at {get_url}")
