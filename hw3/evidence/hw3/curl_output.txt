@@ -1,0 +1,42 @@
+
+manuel@Manuel-PCL:~$ curl http://0.0.0.0:5000/api/activities
+{
+  "activities": [
+    {
+      "details": "Important stuff here", 
+      "id": 0, 
+      "timestamp": "Thu, 17 Oct 2019 14:50:50 GMT", 
+      "user_id": 1, 
+      "username": "john"
+    }, 
+    {
+      "details": "Even more important", 
+      "id": 1, 
+      "timestamp": "Thu, 17 Oct 2019 14:50:50 GMT", 
+      "user_id": 2, 
+      "username": "yoko"
+    }
+  ]
+}
+
+
+
+manuel@Manuel-PCL:~$ curl http://0.0.0.0:5000/api/activities/1
+{
+  "details": "Even more important", 
+  "id": 1, 
+  "timestamp": "Thu, 17 Oct 2019 14:50:50 GMT", 
+  "user_id": 2, 
+  "username": "yoko"
+}
+
+
+
+manuel@Manuel-PCL:~$ curl -H "Content-Type: application/json" --request POST --data '{"details": "Hello World", "user_id": 2, "username": "joe"}' http://0.0.0.0:5000/api/activities
+{
+  "details": "Hello World", 
+  "id": 2, 
+  "timestamp": "Thu, 17 Oct 2019 15:45:42 GMT", 
+  "user_id": 2, 
+  "username": "joe"
+}

@@ -1,0 +1,120 @@
+manuel@linuxpc:~$ curl http://0.0.0.0:5001/api/activities/
+{
+  "activities": [
+    {
+      "details": "Up Vote: <Comment id 7 - Take that Wolves!>", 
+      "id": "5dc0adf5cda884a31bbd791f", 
+      "location": "/api/activities/5dc0adf5cda884a31bbd791f", 
+      "timestamp": "Mon, 04 Nov 2019 23:02:13 GMT", 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "details": "Login <User id 7 - wolfbot>", 
+      "id": "5dc0adeacda884a31bbd791e", 
+      "location": "/api/activities/5dc0adeacda884a31bbd791e", 
+      "timestamp": "Mon, 04 Nov 2019 23:02:02 GMT", 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "details": "Logout <User id 9 - beaverbot>", 
+      "id": "5dc0ade0cda884a31bbd791d", 
+      "location": "/api/activities/5dc0ade0cda884a31bbd791d", 
+      "timestamp": "Mon, 04 Nov 2019 23:01:52 GMT", 
+      "user_id": 9, 
+      "username": "beaverbot"
+    }, 
+    {
+      "details": "Down Vote: <Comment id 6 - Well... We Wolves be>", 
+      "id": "5dc0adb9cda884a31bbd791c", 
+      "location": "/api/activities/5dc0adb9cda884a31bbd791c", 
+      "timestamp": "Mon, 04 Nov 2019 23:01:13 GMT", 
+      "user_id": 9, 
+      "username": "beaverbot"
+    }, 
+    {
+      "details": "Login <User id 9 - beaverbot>", 
+      "id": "5dc0adafcda884a31bbd791b", 
+      "location": "/api/activities/5dc0adafcda884a31bbd791b", 
+      "timestamp": "Mon, 04 Nov 2019 23:01:03 GMT", 
+      "user_id": 9, 
+      "username": "beaverbot"
+    }, 
+    {
+      "details": "Logout <User id 7 - wolfbot>", 
+      "id": "5dc0ada5cda884a31bbd791a", 
+      "location": "/api/activities/5dc0ada5cda884a31bbd791a", 
+      "timestamp": "Mon, 04 Nov 2019 23:00:53 GMT", 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "details": "Down Vote: <Post id 360 - Beavers Are Masters of Python>", 
+      "id": "5dc0ad5acda884a31bbd7919", 
+      "location": "/api/activities/5dc0ad5acda884a31bbd7919", 
+      "timestamp": "Mon, 04 Nov 2019 22:59:38 GMT", 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "details": "Login <User id 7 - wolfbot>", 
+      "id": "5dc0ad51cda884a31bbd7918", 
+      "location": "/api/activities/5dc0ad51cda884a31bbd7918", 
+      "timestamp": "Mon, 04 Nov 2019 22:59:29 GMT", 
+      "user_id": 7, 
+      "username": "wolfbot"
+    }, 
+    {
+      "details": "Logout <User id 9 - beaverbot>", 
+      "id": "5dc0ad47cda884a31bbd7917", 
+      "location": "/api/activities/5dc0ad47cda884a31bbd7917", 
+      "timestamp": "Mon, 04 Nov 2019 22:59:19 GMT", 
+      "user_id": 9, 
+      "username": "beaverbot"
+    }, 
+    {
+      "details": "Create: <Post id 360 - Beavers Are Masters of Python>", 
+      "id": "5dc0ad33cda884a31bbd7916", 
+      "location": "/api/activities/5dc0ad33cda884a31bbd7916", 
+      "timestamp": "Mon, 04 Nov 2019 22:58:59 GMT", 
+      "user_id": 9, 
+      "username": "beaverbot"
+    }
+  ]
+}
+
+
+
+
+
+manuel@linuxpc:~$ curl http://0.0.0.0:5001/api/activities/5dc0ade0cda884a31bbd791d
+[
+  {
+    "details": "Logout <User id 9 - beaverbot>", 
+    "id": "5dc0ade0cda884a31bbd791d", 
+    "location": "/api/activities/5dc0ade0cda884a31bbd791d", 
+    "timestamp": "Mon, 04 Nov 2019 23:01:52 GMT", 
+    "user_id": 9, 
+    "username": "beaverbot"
+  }
+]
+
+
+
+
+
+manuel@linuxpc:~$ curl -H "Content-Type: application/json" --request POST --data '{"details": "This is me making a POST request to the API", "user_id": 2, "username": "joe"}' http://0.0.0.0:5001/api/activities/
+[
+  {
+    "details": "This is me making a POST request to the API", 
+    "id": "5dc0afa4cda884a31bbd7920", 
+    "location": "/api/activities/5dc0afa4cda884a31bbd7920", 
+    "timestamp": "Mon, 04 Nov 2019 23:09:24 GMT", 
+    "user_id": 2, 
+    "username": "joe"
+  }
+]
+
+
+
